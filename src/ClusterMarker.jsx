@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react'
-import { Marker, GeoJson } from 'pigeon-maps'
+import { Marker } from 'pigeon-maps'
 import { ClusterSpider } from './ClusterSpider'
 import { ClusterHull } from './ClusterHull'
 
@@ -8,7 +8,7 @@ export const ClusterMarker = (props) => {
   const MarkerComponent = markerComponent === undefined ? Marker : null
   const SpiderComponent =
     props.spiderComponent === undefined ? ClusterSpider : null
-  const HullComponent = props.hullComponent === undefined ? GeoJson : null
+  const HullComponent = props.hullComponent === undefined ? ClusterHull : null
 
   const { hull } = props
   const [hover, setHover] = useState(false)
@@ -41,7 +41,7 @@ export const ClusterMarker = (props) => {
       {SpiderComponent && spiderify && (
         <SpiderComponent {...props} componets={props.component} />
       )}
-      {HullComponent && max < 0.05 && hover && (
+      {HullComponent && max > 0.05 && hover && (
         <HullComponent {...props} hull={hull} />
       )}
       {MarkerComponent && (

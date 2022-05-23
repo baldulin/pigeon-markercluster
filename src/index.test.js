@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { SuperCluster } from '.'
 
-describe('ExampleComponent', () => {
+describe('SuperCluster', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(SuperCluster).toBeTruthy()
   })
 })

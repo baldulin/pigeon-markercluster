@@ -1,7 +1,6 @@
-import React, {memo, useMemo} from "react";
+import React, { memo, useMemo } from 'react'
 
-
-export const ClusterHull = memo(({hull, ...props}) => {
+export const ClusterHull = memo(({ hull, ...props }) => {
   const geoJsonData = useMemo(
     () => ({
       features: [
@@ -15,7 +14,7 @@ export const ClusterHull = memo(({hull, ...props}) => {
       ]
     }),
     [hull]
-  );
+  )
 
   return <GeoJson {...props} data={geoJsonData} />
-});
+})

@@ -1,14 +1,14 @@
-import React from 'react'
-import {Marker, GeoJson} from "pigeon-maps";
-import {ClusterSpider} from "./ClusterSpider";
-import {ClusterHull} from "./ClusterHull";
-
+import React, { useState, useMemo, useCallback } from 'react'
+import { Marker, GeoJson } from 'pigeon-maps'
+import { ClusterSpider } from './ClusterSpider'
+import { ClusterHull } from './ClusterHull'
 
 export const ClusterMarker = (props) => {
-  const {spiderComponent, markerComponent} = props;
-  const MarkerComponent = markerComponent === undefined ? Marker : null;
-  const SpiderComponent = props.spiderComponent === undefined ? Spider : null;
-  const HullComponent = props.hullComponent === undefined ? GeoJson
+  const { spiderComponent, markerComponent } = props
+  const MarkerComponent = markerComponent === undefined ? Marker : null
+  const SpiderComponent =
+    props.spiderComponent === undefined ? ClusterSpider : null
+  const HullComponent = props.hullComponent === undefined ? GeoJson : null
 
   const { hull } = props
   const [hover, setHover] = useState(false)
@@ -38,17 +38,23 @@ export const ClusterMarker = (props) => {
 
   return (
     <div>
-      {SpiderComponent && spiderify && <SpiderComponent componets={props.component}/>}
-      {HullComponent && max < 0.05 && hover && <HullComponent hull={hull}/>}
-      {MarkerComponent && <MarkerComponent
-        {...props}
-        anchor={props.geometry.coordinates}
-        onClick={clickHandler}
-        onMouseOver={(ev) => setHover(true)}
-        onMouseOut={(ev) => {
-          setHover(false)
-        }}
-      />
+      {SpiderComponent && spiderify && (
+        <SpiderComponent {...props} componets={props.component} />
+      )}
+      {HullComponent && max < 0.05 && hover && (
+        <HullComponent {...props} hull={hull} />
+      )}
+      {MarkerComponent && (
+        <MarkerComponent
+          {...props}
+          anchor={props.geometry.coordinates}
+          onClick={clickHandler}
+          onMouseOver={(ev) => setHover(true)}
+          onMouseOut={(ev) => {
+            setHover(false)
+          }}
+        />
+      )}
     </div>
   )
 }

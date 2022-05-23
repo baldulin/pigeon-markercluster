@@ -1,8 +1,9 @@
-import React, {useMemo} from "react";
-import {Cluster} from "./Cluster";
+import React, { useRef, useEffect, useMemo } from 'react'
+import { Cluster } from './Cluster'
+import Supercluster from 'supercluster'
+import { calculateHull } from './utils'
 
-
-export const useSuperCluster = ({children, mapState}) => {
+export const useSuperCluster = ({ children, mapState }) => {
   // Create SuperCluster instance
   const clusterCalculator = useMemo(() => {
     const clusterData = React.Children.toArray(children)
@@ -30,7 +31,9 @@ export const useSuperCluster = ({children, mapState}) => {
 
   // SuperCluster does not directly return the clusters with leaves
   const leaveRef = useRef({})
-  useEffect(() => (leaveRef.current = {}), [clusterCalculator])
+  useEffect(() => {
+    leaveRef.current = {}
+  }, [clusterCalculator])
 
   const leavesData = leaveRef.current
 
@@ -56,13 +59,16 @@ export const useSuperCluster = ({children, mapState}) => {
     (cluster) => leavesData[cluster?.properties?.cluster_id] || cluster
   )
 
-  return leaves;
-};
+  return leaves
+}
 
+export const SuperCluster = ({
+  clusterComponent = Cluster,
+  children,
+  ...props
+}) => {
+  const CustomCluster = clusterComponent
+  const clusters = useSuperCluster({ children, mapState: props.mapState })
 
-export const SuperCluster = ({clusterComponent=Cluster, children, ...props}) => {
-    const CustomCluster = clusterComponent;
-    const clusters = useSuperCluster({children, props.mapState});
-
-    return <CustomCluster clusters={clusters} {...props}/>
-};
+  return <CustomCluster clusters={clusters} {...props} />
+}

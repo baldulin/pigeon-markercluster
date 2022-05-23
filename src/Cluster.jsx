@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useRef, useMemo, useState } from 'react'
-import {ClusterMarker} from "./ClusterMarker";
+import { ClusterMarker } from './ClusterMarker'
 
-
-export Cluster = ({clusters, clusterMarker, ...props}) => {
+export const Cluster = ({ clusters, clusterMarker, ...props }) => {
   const CustomClusterMarker = clusterMarker || ClusterMarker
 
   return clusters.map((cluster) => {
@@ -18,7 +17,11 @@ export Cluster = ({clusters, clusterMarker, ...props}) => {
 
     if (cluster?.properties?.cluster_id) {
       return (
-        <CustomClusterMarker key={cluster.properties.cluster_id} {...p} {...cluster} />
+        <CustomClusterMarker
+          key={cluster.properties.cluster_id}
+          {...p}
+          {...cluster}
+        />
       )
     } else {
       return React.cloneElement(cluster.properties.component, p)

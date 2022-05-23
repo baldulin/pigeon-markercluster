@@ -13,12 +13,12 @@ const App = () => {
   return (
     <div>
       <Map
-        center={[12.17506, 53.7942]}
+        center={[53.7942, 12.17506]}
         zoom={6}
         defaultWidth={600}
-        height={400}
+        height={800}
       >
-        <ZoomControl/>
+        <ZoomControl />
         <SuperCluster>{markers}</SuperCluster>
       </Map>
     </div>

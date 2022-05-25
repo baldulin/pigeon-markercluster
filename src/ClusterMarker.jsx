@@ -4,11 +4,13 @@ import { ClusterSpider } from './ClusterSpider'
 import { ClusterHull } from './ClusterHull'
 
 export const ClusterMarker = (props) => {
-  const { spiderComponent, markerComponent } = props
-  const MarkerComponent = markerComponent === undefined ? Marker : null
+  const { spiderComponent, markerComponent, hullComponent } = props
+  const MarkerComponent =
+    markerComponent === undefined ? Marker : markerComponent
   const SpiderComponent =
-    props.spiderComponent === undefined ? ClusterSpider : null
-  const HullComponent = props.hullComponent === undefined ? ClusterHull : null
+    spiderComponent === undefined ? ClusterSpider : spiderComponent
+  const HullComponent =
+    hullComponent === undefined ? ClusterHull : hullComponent
 
   const { hull } = props
   const [hover, setHover] = useState(false)

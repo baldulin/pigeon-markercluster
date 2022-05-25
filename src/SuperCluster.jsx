@@ -3,7 +3,13 @@ import { Cluster } from './Cluster'
 import Supercluster from 'supercluster'
 import { calculateHull } from './utils'
 
-export const useSuperCluster = ({ children, mapState }) => {
+export const useSuperCluster = ({
+  children,
+  mapState,
+  radius = 40,
+  minPoints = 2,
+  maxZoom = 20
+}) => {
   // Create SuperCluster instance
   const clusterCalculator = useMemo(() => {
     const clusterData = React.Children.toArray(children)
@@ -18,7 +24,7 @@ export const useSuperCluster = ({ children, mapState }) => {
           component: child
         }
       }))
-    return new Supercluster({ minPoints: 2, maxZoom: 20 }).load(clusterData)
+    return new Supercluster({ minPoints, maxZoom, radius }).load(clusterData)
   }, [children])
 
   const { bounds, zoom } = mapState
@@ -65,10 +71,19 @@ export const useSuperCluster = ({ children, mapState }) => {
 export const SuperCluster = ({
   clusterComponent = Cluster,
   children,
+  radius = 40,
+  minPoints = 2,
+  maxZoom = 20,
   ...props
 }) => {
   const CustomCluster = clusterComponent
-  const clusters = useSuperCluster({ children, mapState: props.mapState })
+  const clusters = useSuperCluster({
+    children,
+    mapState: props.mapState,
+    radius,
+    minPoints,
+    maxZoom
+  })
 
   return <CustomCluster clusters={clusters} {...props} />
 }

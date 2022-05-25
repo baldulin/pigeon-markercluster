@@ -46,6 +46,7 @@ const CustomMarker = (props) => {
       height={height}
       src={customMarker}
       style={{
+        position: 'absolute',
         transform: `translate(${props.left - width / 2}px, ${
           props.top - (height - 1)
         }px)`

@@ -1,12 +1,77 @@
 import React, { useMemo } from 'react'
 
-import { Map, Marker, ZoomControl } from 'pigeon-maps'
+import { GeoJson, Map, ZoomControl, Overlay } from 'pigeon-maps'
 import { SuperCluster } from 'pigeon-cluster'
 import points from './points.json'
+import customMarker from './customMarker.svg'
+
+const CustomClusterHull = ({ hull, ...props }) => {
+  const geoJsonData = useMemo(
+    () => ({
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Polygon',
+            coordinates: [hull]
+          }
+        }
+      ]
+    }),
+    [hull]
+  )
+
+  return (
+    <GeoJson
+      {...props}
+      data={geoJsonData}
+      svgAttributes={{
+        strokeWidth: '3',
+        strokeDasharray: '7,7',
+        stroke: '#c20871',
+        fill: '#c2087130',
+        r: '30'
+      }}
+    />
+  )
+}
+
+const CustomMarker = (props) => {
+  const [width, height] = [20, 20]
+
+  return (
+    <img
+      alt='Custom Marker'
+      width={width}
+      height={height}
+      src={customMarker}
+      style={{
+        transform: `translate(${props.left - width / 2}px, ${
+          props.top - (height - 1)
+        }px)`
+      }}
+    />
+  )
+}
+
+const CustomClusterMarker = (props) => (
+  <Overlay {...props} anchor={props.geometry.coordinates}>
+    <div
+      className='cluster-marker'
+      onClick={props.onClick}
+      onMouseOver={props.onMouseOver}
+      onMouseOut={props.onMouseOut}
+    >
+      <div>
+        <span>{props.component?.length}</span>
+      </div>
+    </div>
+  </Overlay>
+)
 
 const App = () => {
   const markers = useMemo(
-    () => points.map((coords, i) => <Marker key={i} anchor={coords} />),
+    () => points.map((coords, i) => <CustomMarker key={i} anchor={coords} />),
     []
   )
 
@@ -19,7 +84,13 @@ const App = () => {
         height={800}
       >
         <ZoomControl />
-        <SuperCluster>{markers}</SuperCluster>
+        <SuperCluster
+          hullComponent={CustomClusterHull}
+          markerComponent={CustomClusterMarker}
+          radius={120}
+        >
+          {markers}
+        </SuperCluster>
       </Map>
     </div>
   )

@@ -12,3 +12,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.cluster-marker {
+  background-clip: padding-box;
+  border: 2px dashed #c2087199;
+  border-radius: 30px !important;
+  color: #fff;
+  height: 60px;
+  width: 60px;
+  position: relative;
+  left: -30px;
+  top: -30px;
+}
+
+.cluster-marker div {
+  background-color: #c2087199;
+  padding: 5px;
+  text-align: center;
+  margin-left: 13px;
+  margin-top: 15px;
+  width: 26px;
+  height: 20px;
+}

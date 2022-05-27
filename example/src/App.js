@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { GeoJson, Map, ZoomControl, Overlay } from 'pigeon-maps'
+import { GeoJson, Map, ZoomControl } from 'pigeon-maps'
 import { SuperCluster } from 'pigeon-cluster'
 import points from './points.json'
 import customMarker from './customMarker.svg'
@@ -55,20 +55,29 @@ const CustomMarker = (props) => {
   )
 }
 
-const CustomClusterMarker = (props) => (
-  <Overlay {...props} anchor={props.geometry.coordinates}>
+const CustomClusterMarker = (props) => {
+  const [x, y] = props.geometry.coordinates
+  const [left, top] = props.latLngToPixel([y, x])
+  const [width, height] = [30, 30]
+
+  return (
     <div
       className='cluster-marker'
       onClick={props.onClick}
       onMouseOver={props.onMouseOver}
       onMouseOut={props.onMouseOut}
+      style={{
+        cursor: 'pointer',
+        position: 'absolute',
+        transform: `translate(${left - width / 2}px, ${top - (height - 1)}px)`
+      }}
     >
       <div>
         <span>{props.component?.length}</span>
       </div>
     </div>
-  </Overlay>
-)
+  )
+}
 
 const App = () => {
   const markers = useMemo(

@@ -16,13 +16,16 @@ code {
 .cluster-marker {
   background-clip: padding-box;
   border: 2px dashed #c2087199;
-  border-radius: 30px !important;
+  border-radius: 30px;
   color: #fff;
   height: 60px;
   width: 60px;
   position: relative;
-  left: -30px;
-  top: -30px;
+}
+
+.cluster-marker:hover {
+  border-radius: 0px;
+  border: 2px solid transparent;
 }
 
 .cluster-marker div {

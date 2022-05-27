@@ -28,7 +28,6 @@ export const Marker = (props) => {
             props.top + props.mapState.height / 4 - 41
           ])
           props.setCenterZoom(point)
-          //ev.stopPropagation();
         }
       }}
     >

@@ -1,8 +1,6 @@
-# pigeon-cluster
+#pigeon-cluster
 
 > Clustering library for pigeon-maps
-
-[![NPM](https://img.shields.io/npm/v/pigeon-cluster.svg)](https://www.npmjs.com/package/pigeon-cluster) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
@@ -13,16 +11,18 @@ npm install --save pigeon-cluster
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import { Map, Marker } from 'pigeon-maps'
+import { SuperCluster } from 'pigeon-cluster'
 
-import MyComponent from 'pigeon-cluster'
-import 'pigeon-cluster/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
-}
+const Example = () => (
+  <Map center={[53.7942, 12.17506]} zoom={6} defaultWidth={600} height={800}>
+    <SuperCluster>
+      {points.map((point) => (
+        <Marker anchor={point} />
+      ))}
+    </SuperCluster>
+  </Map>
+)
 ```
 
 ## License

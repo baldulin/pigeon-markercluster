@@ -37,3 +37,31 @@ code {
   width: 26px;
   height: 20px;
 }
+
+.customPin2,
+.customPinIcon2 {
+  cursor: pointer;
+  background-image: url(./marker-icon.png);
+  background-size: cover;
+  width: 25px;
+  height: 41px;
+  left: -19.5px;
+  top: -41px;
+  display: block;
+  position: relative;
+  opacity: 0.6;
+
+  &--clicked {
+    filter: invert(0.3);
+  }
+}
+
+.marker-popup {
+  position: relative;
+  border: 1px solid lightgray;
+  background-color: white;
+  box-shadow: $tile-shadow;
+  z-index: 900;
+  top: -25px;
+  left: -25px;
+}

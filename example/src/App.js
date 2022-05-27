@@ -1,92 +1,45 @@
 import React, { useMemo } from 'react'
 
-import { GeoJson, Map, ZoomControl } from 'pigeon-maps'
+import { Map, ZoomControl } from 'pigeon-maps'
 import { SuperCluster } from 'pigeon-cluster'
 import points from './points.json'
-import customMarker from './customMarker.svg'
-
-const CustomClusterHull = ({ hull, ...props }) => {
-  const geoJsonData = useMemo(
-    () => ({
-      features: [
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Polygon',
-            coordinates: [hull]
-          }
-        }
-      ]
-    }),
-    [hull]
-  )
-
-  return (
-    <GeoJson
-      {...props}
-      data={geoJsonData}
-      svgAttributes={{
-        strokeWidth: '3',
-        strokeDasharray: '7,7',
-        stroke: '#c20871',
-        fill: '#c2087130',
-        r: '30'
-      }}
-    />
-  )
-}
-
-const CustomMarker = (props) => {
-  const [width, height] = [20, 20]
-
-  return (
-    <img
-      alt='Custom Marker'
-      width={width}
-      height={height}
-      src={customMarker}
-      style={{
-        position: 'absolute',
-        transform: `translate(${props.left - width / 2}px, ${
-          props.top - (height - 1)
-        }px)`
-      }}
-    />
-  )
-}
-
-const CustomClusterMarker = (props) => {
-  const [x, y] = props.geometry.coordinates
-  const [left, top] = props.latLngToPixel([y, x])
-  const [width, height] = [30, 30]
-
-  return (
-    <div
-      className='cluster-marker'
-      onClick={props.onClick}
-      onMouseOver={props.onMouseOver}
-      onMouseOut={props.onMouseOut}
-      style={{
-        cursor: 'pointer',
-        position: 'absolute',
-        transform: `translate(${left - width / 2}px, ${top - (height - 1)}px)`
-      }}
-    >
-      <div>
-        <span>{props.component?.length}</span>
-      </div>
-    </div>
-  )
-}
+import { Marker } from './Marker'
+import { ClusterMarker } from './ClusterMarker'
+import { ClusterHull } from './ClusterHull'
 
 const App = () => {
   const markers = useMemo(
-    () => points.map((coords, i) => <CustomMarker key={i} anchor={coords} />),
+    () =>
+      points.map((coords, i) => (
+        <Marker key={i} anchor={coords}>
+          <div
+            style={{
+              width: '200px',
+              minHeight: '300px',
+              backgroundColor: 'white',
+              textAlign: 'justify',
+              padding: '10px'
+            }}
+          >
+            <b>Lorem Ipsum</b> is simply dummy text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry's standard
+            dummy text ever since the 1500s, when an unknown printer took a
+            galley of type and scrambled it to make a type specimen book. It has
+            survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum
+            passages, and more recently with desktop publishing software like
+            Aldus PageMaker including versions of Lorem Ipsum.
+            <br />
+            <b>Coordinates:</b> [{coords[0]}, {coords[1]}]
+          </div>
+        </Marker>
+      )),
     []
   )
 
   return (
-    <div>
+    <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '600px' }}>
       <Map
         center={[53.7942, 12.17506]}
         zoom={6}
@@ -95,8 +48,8 @@ const App = () => {
       >
         <ZoomControl />
         <SuperCluster
-          hullComponent={CustomClusterHull}
-          markerComponent={CustomClusterMarker}
+          hullComponent={ClusterHull}
+          markerComponent={ClusterMarker}
           radius={120}
         >
           {markers}

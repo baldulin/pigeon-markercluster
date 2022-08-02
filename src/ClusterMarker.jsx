@@ -4,7 +4,12 @@ import { ClusterSpider } from './ClusterSpider'
 import { ClusterHull } from './ClusterHull'
 
 export const ClusterMarker = (props) => {
-  const { spiderComponent, markerComponent, hullComponent } = props
+  const {
+    spiderComponent,
+    spiderifyZoomLevel = 12,
+    markerComponent,
+    hullComponent
+  } = props
   const MarkerComponent =
     markerComponent === undefined ? Marker : markerComponent
   const SpiderComponent =
@@ -28,7 +33,7 @@ export const ClusterMarker = (props) => {
 
   const { setCenterZoom, mapState } = props
   const clickHandler = useCallback(() => {
-    if (mapState.zoom > 16) {
+    if (mapState.zoom > spiderifyZoomLevel) {
       setSpiderify(!spiderify)
     } else {
       setCenterZoom(

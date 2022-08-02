@@ -1,10 +1,24 @@
 import React, { Fragment } from 'react'
 import { Line } from './Line'
 
-const radialGrowth = (i) => Math.sqrt(i + 1) * 40
-const tangentialSpeed = (i) => Math.sqrt(i + 1) * Math.PI
+// equidistant points on a archimedian spiral:
+// https://math.stackexchange.com/a/1371761
+const baseSpiderMarkerPositioner = (i, N) => {
+  const theta = Math.sqrt((i + 1) / 100) * 25
+  return [10 * theta * Math.sin(theta), 10 * theta * Math.cos(theta)]
+}
 
-export const ClusterSpider = ({ component, left, top, mapState, ...props }) => (
+const zip = (arr1, ...arrs) =>
+  arr1.map((value, i) => [value, ...arrs.map((arr) => arr[i])])
+
+export const ClusterSpider = ({
+  component,
+  left,
+  top,
+  mapState,
+  spiderMarkerPositioner = baseSpiderMarkerPositioner,
+  ...props
+}) => (
   <>
     {component.map((marker, i) => (
       <Line
@@ -12,18 +26,24 @@ export const ClusterSpider = ({ component, left, top, mapState, ...props }) => (
         width={mapState.width}
         height={mapState.height}
         a={[left, top]}
-        b={[
-          left + radialGrowth(i) * Math.sin(tangentialSpeed(i)),
-          top + radialGrowth(i) * Math.cos(tangentialSpeed(i))
-        ]}
+        b={zip([left, top], spiderMarkerPositioner(i, component.length)).map(
+          ([v1, v2]) => v1 + v2
+        )}
       />
     ))}
     {component.map((marker, i) =>
       React.cloneElement(marker, {
         ...props,
         mapState,
-        left: left + radialGrowth(i) * Math.sin(tangentialSpeed(i)),
-        top: top + radialGrowth(i) * Math.cos(tangentialSpeed(i))
+        ...Object.fromEntries(
+          zip(
+            [
+              ['left', left],
+              ['top', top]
+            ],
+            spiderMarkerPositioner(i, component.length)
+          ).map(([[prop, v1], v2]) => [prop, v1 + v2])
+        )
       })
     )}
   </>

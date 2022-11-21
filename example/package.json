@@ -1,5 +1,5 @@
 {
-  "name": "pigeon-cluster-example",
+  "name": "pigeon-markercluster-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -10,7 +10,7 @@
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
-    "pigeon-cluster": "file:..",
+    "pigeon-markercluster": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
     "react-scripts": "file:../node_modules/react-scripts",

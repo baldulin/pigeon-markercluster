@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { Map, ZoomControl } from 'pigeon-maps'
-import { SuperCluster } from 'pigeon-cluster'
+import { SuperCluster } from 'pigeon-markercluster'
 import points from './points.json'
 import { Marker } from './Marker'
 import { ClusterMarker } from './ClusterMarker'

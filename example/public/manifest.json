@@ -1,6 +1,6 @@
 {
-  "short_name": "pigeon-cluster",
-  "name": "pigeon-cluster",
+  "short_name": "pigeon-markercluster",
+  "name": "pigeon-markercluster",
   "icons": [
     {
       "src": "favicon.ico",

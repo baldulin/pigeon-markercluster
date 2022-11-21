@@ -1,10 +1,10 @@
 {
-  "name": "pigeon-cluster",
-  "version": "1.0.1",
+  "name": "pigeon-markercluster",
+  "version": "1.0.2",
   "description": "Clustering library for pigeon-maps",
   "author": "baldulin",
   "license": "MIT",
-  "repository": "baldulin/pigeon-cluster",
+  "repository": "baldulin/pigeon-markercluster",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

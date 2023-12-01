@@ -1,7 +1,10 @@
 {
   "name": "pigeon-markercluster",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.3",
+  "description": "Clustering library for pigeon-maps",
+  "author": "baldulin",
+  "license": "MIT",
+  "repository": "baldulin/pigeon-markercluster",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -35,12 +38,13 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "glob": "^10.3.10",
+    "json": "^11.0.0",
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "supercluster": "^8.0.1",
     "pigeon-maps": "^0.21.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "supercluster": "^8.0.1"
   }
 }
